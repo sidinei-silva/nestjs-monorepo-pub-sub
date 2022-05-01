@@ -1,0 +1,11 @@
+{
+  "name": "@app/order-service",
+  "version": "0.0.1",
+  "description": "monorepo for order-service",
+  "author": {
+    "name": "Sidinei Silva",
+    "email": "sidinei.silva02@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}

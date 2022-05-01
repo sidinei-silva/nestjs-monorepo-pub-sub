@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/order-service/src",
+  "monorepo": true,
+  "root": "apps/order-service",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/order-service/tsconfig.json"
+  },
+  "projects": {
+    "@app/order-service": {
+      "type": "application",
+      "root": "apps/order-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/order-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/order-service/tsconfig.json"
+      }
+    },
+    "@app/shipping-service": {
+      "type": "application",
+      "root": "apps/shipping-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/shipping-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/shipping-service/tsconfig.json"
+      }
+    },
+    "@app/billing-service": {
+      "type": "application",
+      "root": "apps/billing-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/billing-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/billing-service/tsconfig.json"
+      }
+    }
+  }
+}

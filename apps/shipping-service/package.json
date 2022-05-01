@@ -1,0 +1,11 @@
+{
+  "name": "@app/shipping-service",
+  "version": "0.0.1",
+  "description": "monorepo for shipping-service",
+  "author": {
+    "name": "Sidinei Silva",
+    "email": "sidinei.silva02@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}

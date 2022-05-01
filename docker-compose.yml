@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  order-service:
+    container_name: order-service
+    build:
+      context: .
+      target: development
+      dockerfile: ./apps/order-service/Dockerfile
+    command: yarn start:order-service:dev
+    volumes:
+      - .:/app
+    ports:
+      - ${ORDER_SERVICE_PORT}:${ORDER_SERVICE_PORT}
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=redis://redis_db:6379
+    networks:
+      - monorepo-pub-sub-network
+    depends_on:
+      - redis_db
+    restart: unless-stopped
+
+  billing-service:
+    container_name: billing-service
+    build:
+      context: .
+      target: development
+      dockerfile: ./apps/billing-service/Dockerfile
+    command: yarn start:billing-service:dev
+    volumes:
+      - .:/app
+    ports:
+      - ${BILLING_SERVICE_PORT}:${BILLING_SERVICE_PORT}
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=redis://redis_db:6379
+    networks:
+      - monorepo-pub-sub-network
+    depends_on:
+      - redis_db
+    restart: unless-stopped
+
+  shipping-service:
+    container_name: shipping-service
+    build:
+      context: .
+      target: development
+      dockerfile: ./apps/shipping-service/Dockerfile
+    command: yarn start:shipping-service:dev
+    volumes:
+      - .:/app
+    ports:
+      - ${SHIPPING_SERVICE_PORT}:${SHIPPING_SERVICE_PORT}
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=redis://redis_db:6379
+    networks:
+      - monorepo-pub-sub-network
+    depends_on:
+      - redis_db
+    restart: unless-stopped
+
+  redis_db:
+    container_name: monorepo-redis
+    image: "redis"
+    hostname: redis_db
+    networks:
+      - monorepo-pub-sub-network
+    ports:
+      - 6379:6379
+    volumes:
+      - monorepo-pub-sub-redis:/data
+    restart: unless-stopped
+
+networks:
+  monorepo-pub-sub-network:
+    name: monorepo-pub-sub-network
+    driver: bridge
+
+volumes:
+  monorepo-pub-sub-redis:
+    name: monorepo-pub-sub-redis
